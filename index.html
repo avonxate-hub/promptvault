@@ -724,6 +724,71 @@
 
     </div>
 
+<!-- =========================================
+     DELETE CONFIRMATION MODAL
+========================================= -->
+
+<div
+    id="deleteModal"
+    class="modal hidden"
+>
+
+    <div
+        class="modal-overlay"
+        id="deleteModalOverlay"
+    ></div>
+
+
+    <div class="modal-card delete-modal-card">
+
+
+        <div class="delete-icon">
+            !
+        </div>
+
+
+        <div class="delete-modal-content">
+
+            <p class="eyebrow">
+                DELETE PROMPT
+            </p>
+
+            <h2>
+                Delete this prompt?
+            </h2>
+
+            <p id="deletePromptMessage">
+                This action cannot be undone.
+            </p>
+
+        </div>
+
+
+        <div class="form-actions">
+
+            <button
+                id="cancelDeleteBtn"
+                class="secondary-button"
+                type="button"
+            >
+                Cancel
+            </button>
+
+
+            <button
+                id="confirmDeleteBtn"
+                class="delete-confirm-button"
+                type="button"
+            >
+                Delete Prompt
+            </button>
+
+        </div>
+
+
+    </div>
+
+</div>
 
 
     <!-- =========================================

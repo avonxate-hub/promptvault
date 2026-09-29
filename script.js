@@ -80,6 +80,21 @@ const viewPromptDate =
 const viewPromptText =
     document.getElementById("viewPromptText");
     
+    const deleteModal =
+    document.getElementById("deleteModal");
+
+const deleteModalOverlay =
+    document.getElementById("deleteModalOverlay");
+
+const cancelDeleteBtn =
+    document.getElementById("cancelDeleteBtn");
+
+const confirmDeleteBtn =
+    document.getElementById("confirmDeleteBtn");
+
+const deletePromptMessage =
+    document.getElementById("deletePromptMessage");
+    
     const promptWordCount =
     document.getElementById("promptWordCount");
 
@@ -97,6 +112,8 @@ let currentFilter = {
     type: "all",
     value: null
 };
+
+let pendingDeleteId = null;
 
 
 /* =========================================
@@ -659,13 +676,11 @@ promptGrid.addEventListener(
 
         }
 
+if (action === "delete") {
 
-        if (action === "delete") {
+    openDeleteModal(id);
 
-            deletePrompt(id);
-
-        }
-
+}
     }
 );
 
@@ -674,7 +689,7 @@ promptGrid.addEventListener(
    DELETE
    ========================================= */
 
-function deletePrompt(id) {
+function openDeleteModal(id) {
 
     const prompt =
         prompts.find(
@@ -683,22 +698,66 @@ function deletePrompt(id) {
 
     if (!prompt) return;
 
+    pendingDeleteId = id;
+
+    deletePromptMessage.textContent =
+        `Are you sure you want to delete "${prompt.title}"? This action cannot be undone.`;
+
+    deleteModal.classList.remove("hidden");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function closeDeleteModal() {
+
+    deleteModal.classList.add("hidden");
+
+    document.body.style.overflow = "";
+
+    pendingDeleteId = null;
+
+}
+
+
+function confirmDeletePrompt() {
+
+    if (!pendingDeleteId) return;
+
+    const prompt =
+        prompts.find(
+            item => item.id === pendingDeleteId
+        );
+
+    if (!prompt) {
+
+        closeDeleteModal();
+
+        return;
+
+    }
+
 
     prompts =
-    prompts.filter(
-        item => item.id !== id
-    );
+        prompts.filter(
+            item => item.id !== pendingDeleteId
+        );
 
 
-savePrompts();
-
-showToast(`"${prompt.title}" deleted.`);
+    savePrompts();
 
     renderPrompts();
 
     updateStats();
 
     updateCounts();
+
+    closeDeleteModal();
+
+    showToast(
+        `"${prompt.title}" deleted.`
+    );
 
 }
 
@@ -925,6 +984,23 @@ function closeViewModal() {
 /* =========================================
    MODAL CONTROLS
    ========================================= */
+   
+   cancelDeleteBtn.addEventListener(
+    "click",
+    closeDeleteModal
+);
+
+
+deleteModalOverlay.addEventListener(
+    "click",
+    closeDeleteModal
+);
+
+
+confirmDeleteBtn.addEventListener(
+    "click",
+    confirmDeletePrompt
+);
 
 addPromptBtn.addEventListener(
     "click",
@@ -983,6 +1059,14 @@ document.addEventListener(
             closeViewModal();
 
         }
+        
+        if (
+    !deleteModal.classList.contains("hidden")
+) {
+
+    closeDeleteModal();
+
+}
 
     }
 );
