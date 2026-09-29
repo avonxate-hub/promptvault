@@ -41,6 +41,8 @@ const totalFavorites = document.getElementById("totalFavorites");
 const allCount = document.getElementById("allCount");
 const favoriteCount = document.getElementById("favoriteCount");
 
+const toastContainer =
+    document.getElementById("toastContainer");
 
 /* =========================================
    STATE
@@ -594,22 +596,15 @@ function deletePrompt(id) {
     if (!prompt) return;
 
 
-    const confirmed =
-        confirm(
-            `Delete "${prompt.title}"?`
-        );
-
-
-    if (!confirmed) return;
-
-
     prompts =
-        prompts.filter(
-            item => item.id !== id
-        );
+    prompts.filter(
+        item => item.id !== id
+    );
 
 
-    savePrompts();
+savePrompts();
+
+showToast(`"${prompt.title}" deleted.`);
 
     renderPrompts();
 
@@ -638,6 +633,37 @@ async function copyPrompt(text) {
         );
 
     }
+
+}
+
+
+
+function showToast(message) {
+
+    const toast =
+        document.createElement("div");
+
+    toast.className = "toast";
+
+    toast.innerHTML = `
+        <span class="toast-icon">✓</span>
+        <span>${escapeHTML(message)}</span>
+    `;
+
+    toastContainer.appendChild(toast);
+
+
+    setTimeout(() => {
+
+        toast.classList.add("removing");
+
+        setTimeout(() => {
+
+            toast.remove();
+
+        }, 250);
+
+    }, 2500);
 
 }
 
