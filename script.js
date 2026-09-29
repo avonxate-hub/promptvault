@@ -127,7 +127,8 @@ const samplePrompts = [
         category: "Design",
         text: "Create a premium studio product photograph with dramatic lighting, realistic materials, controlled reflections, subtle shadows, and a clean luxury editorial composition.",
         favorite: true,
-        createdAt: new Date().toISOString()
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString()
     },
 
     {
@@ -251,7 +252,7 @@ function createPromptCard(prompt) {
 
     card.className = "prompt-card";
 
-    const formattedDate = formatDate(prompt.createdAt);
+    const formattedDate = formatDate(prompt.updatedAt || prompt.createdAt);
 
     card.innerHTML = `
         <div class="prompt-card-top">
@@ -566,6 +567,7 @@ promptForm.addEventListener(
                 prompt.title = title;
                 prompt.category = category;
                 prompt.text = text;
+                prompt.updatedAt = new Date().toISOString();
 
             }
 
@@ -960,8 +962,7 @@ function openViewModal(prompt) {
     viewPromptCategory.textContent =
         prompt.category;
 
-    viewPromptDate.textContent =
-        formatDate(prompt.createdAt);
+    viewPromptDate.textContent = `Updated ${formatDate(prompt.updatedAt || prompt.createdAt)}`;
 
     viewPromptText.textContent =
         prompt.text;
@@ -1367,7 +1368,10 @@ function handleImport(event) {
             }
 
 
-            prompts = validPrompts;
+           prompts = validPrompts.map(prompt => ({
+    ...prompt,
+    updatedAt: prompt.updatedAt || prompt.createdAt
+}));
 
             savePrompts();
 
