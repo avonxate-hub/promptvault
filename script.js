@@ -940,3 +940,36 @@ function escapeHTML(value) {
     return div.innerHTML;
 
 }
+
+/* =========================================
+   KEYBOARD SHORTCUTS
+   ========================================= */
+
+document.addEventListener("keydown", event => {
+
+    if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key.toLowerCase() === "k"
+    ) {
+
+        event.preventDefault();
+
+        searchInput.focus();
+
+        searchInput.select();
+
+    }
+
+
+    if (
+        (event.ctrlKey || event.metaKey) &&
+        event.key.toLowerCase() === "n"
+    ) {
+
+        event.preventDefault();
+
+        openModal();
+
+    }
+
+});
