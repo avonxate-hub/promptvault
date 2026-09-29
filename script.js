@@ -44,6 +44,33 @@ const favoriteCount = document.getElementById("favoriteCount");
 const toastContainer =
     document.getElementById("toastContainer");
 
+const viewModal =
+    document.getElementById("viewModal");
+
+const viewModalOverlay =
+    document.getElementById("viewModalOverlay");
+
+const closeViewModalBtn =
+    document.getElementById("closeViewModalBtn");
+
+const closeViewPromptBtn =
+    document.getElementById("closeViewPromptBtn");
+
+const copyViewPromptBtn =
+    document.getElementById("copyViewPromptBtn");
+
+const viewPromptTitle =
+    document.getElementById("viewPromptTitle");
+
+const viewPromptCategory =
+    document.getElementById("viewPromptCategory");
+
+const viewPromptDate =
+    document.getElementById("viewPromptDate");
+
+const viewPromptText =
+    document.getElementById("viewPromptText");
+
 /* =========================================
    STATE
    ========================================= */
@@ -227,31 +254,39 @@ function createPromptCard(prompt) {
 
             <div class="card-actions">
 
-                <button
-                    class="card-action"
-                    data-action="copy"
-                    data-id="${prompt.id}"
-                >
-                    Copy
-                </button>
+    <button
+        class="card-action"
+        data-action="view"
+        data-id="${prompt.id}"
+    >
+        View
+    </button>
 
-                <button
-                    class="card-action"
-                    data-action="edit"
-                    data-id="${prompt.id}"
-                >
-                    Edit
-                </button>
+    <button
+        class="card-action"
+        data-action="copy"
+        data-id="${prompt.id}"
+    >
+        Copy
+    </button>
 
-                <button
-                    class="card-action"
-                    data-action="delete"
-                    data-id="${prompt.id}"
-                >
-                    Delete
-                </button>
+    <button
+        class="card-action"
+        data-action="edit"
+        data-id="${prompt.id}"
+    >
+        Edit
+    </button>
 
-            </div>
+    <button
+        class="card-action"
+        data-action="delete"
+        data-id="${prompt.id}"
+    >
+        Delete
+    </button>
+
+</div>
 
         </div>
     `;
@@ -534,6 +569,12 @@ promptGrid.addEventListener(
         if (!prompt) return;
 
 
+           if (action === "view") {
+
+           openViewModal(prompt);
+
+}
+
         if (action === "favorite") {
 
             prompt.favorite =
@@ -802,6 +843,39 @@ function setActiveNav() {
 
 
 /* =========================================
+   VIEW PROMPT MODAL
+   ========================================= */
+
+function openViewModal(prompt) {
+
+    viewPromptTitle.textContent =
+        prompt.title;
+
+    viewPromptCategory.textContent =
+        prompt.category;
+
+    viewPromptDate.textContent =
+        formatDate(prompt.createdAt);
+
+    viewPromptText.textContent =
+        prompt.text;
+
+    viewModal.classList.remove("hidden");
+
+    document.body.style.overflow = "hidden";
+
+}
+
+
+function closeViewModal() {
+
+    viewModal.classList.add("hidden");
+
+    document.body.style.overflow = "";
+
+}
+
+/* =========================================
    MODAL CONTROLS
    ========================================= */
 
@@ -839,18 +913,69 @@ document.addEventListener(
     "keydown",
     event => {
 
+        if (event.key !== "Escape") {
+            return;
+        }
+
+
         if (
-            event.key === "Escape" &&
             !promptModal.classList.contains("hidden")
         ) {
 
             closeModal();
+
+            return;
+
+        }
+
+
+        if (
+            !viewModal.classList.contains("hidden")
+        ) {
+
+            closeViewModal();
 
         }
 
     }
 );
 
+    
+
+
+/* =========================================
+   VIEW MODAL CONTROLS
+========================================= */
+
+closeViewModalBtn.addEventListener(
+    "click",
+    closeViewModal
+);
+
+
+closeViewPromptBtn.addEventListener(
+    "click",
+    closeViewModal
+);
+
+
+viewModalOverlay.addEventListener(
+    "click",
+    closeViewModal
+);
+
+
+copyViewPromptBtn.addEventListener(
+    "click",
+    async () => {
+
+        const text =
+            viewPromptText.textContent;
+
+        await copyPrompt(text);
+
+    }
+);
 
 /* =========================================
    THEME

@@ -1069,3 +1069,51 @@ body.dark .sidebar {
     }
 
 }
+/* =========================================
+   PROMPT VIEW MODAL
+   ========================================= */
+
+.view-modal-card {
+    max-width: 760px;
+}
+
+.view-prompt-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+}
+
+.view-prompt-content {
+    max-height: 55vh;
+    overflow-y: auto;
+
+    padding: 20px;
+
+    border: 1px solid var(--border);
+    border-radius: 12px;
+
+    background: var(--surface);
+
+    line-height: 1.7;
+    font-size: 14px;
+
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.view-prompt-content p {
+    margin: 0;
+}
+
+@media (max-width: 700px) {
+
+    .view-modal-card {
+        width: calc(100% - 28px);
+    }
+
+    .view-prompt-content {
+        max-height: 50vh;
+    }
+
+}

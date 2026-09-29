@@ -1,196 +1,483 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="PromptVault — A clean and organized AI prompt manager.">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="PromptVault — A clean and organized AI prompt manager."
+    >
+
     <title>PromptVault — AI Prompt Manager</title>
 
-    <link rel="stylesheet" href="style.css">
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+
 </head>
+
 
 <body>
 
+
+    <!-- =========================================
+         TOP BAR
+    ========================================== -->
+
     <header class="topbar">
+
         <div class="brand">
-            <span class="brand-mark">P</span>
-            <span class="brand-name">PromptVault</span>
+
+            <span class="brand-mark">
+                P
+            </span>
+
+            <span class="brand-name">
+                PromptVault
+            </span>
+
         </div>
 
+
         <div class="topbar-actions">
-            <button id="themeToggle" class="icon-button" aria-label="Toggle theme">
+
+            <button
+                id="themeToggle"
+                class="icon-button"
+                aria-label="Toggle theme"
+            >
                 ☾
             </button>
 
-            <button id="addPromptBtn" class="primary-button">
+
+            <button
+                id="addPromptBtn"
+                class="primary-button"
+            >
                 + New Prompt
             </button>
+
         </div>
+
     </header>
 
 
+
+    <!-- =========================================
+         APPLICATION LAYOUT
+    ========================================== -->
+
     <main class="app-layout">
+
+
+        <!-- =====================================
+             SIDEBAR
+        ====================================== -->
 
         <aside class="sidebar">
 
             <nav class="sidebar-nav">
 
-                <p class="nav-label">Library</p>
 
-                <button class="nav-item active" data-filter="all">
-                    <span>▦</span>
+                <p class="nav-label">
+                    Library
+                </p>
+
+
+                <button
+                    class="nav-item active"
+                    data-filter="all"
+                >
+
+                    <span>
+                        ▦
+                    </span>
+
                     All Prompts
-                    <span class="nav-count" id="allCount">0</span>
+
+                    <span
+                        class="nav-count"
+                        id="allCount"
+                    >
+                        0
+                    </span>
+
                 </button>
 
-                <button class="nav-item" data-filter="favorites">
-                    <span>★</span>
+
+                <button
+                    class="nav-item"
+                    data-filter="favorites"
+                >
+
+                    <span>
+                        ★
+                    </span>
+
                     Favorites
-                    <span class="nav-count" id="favoriteCount">0</span>
+
+                    <span
+                        class="nav-count"
+                        id="favoriteCount"
+                    >
+                        0
+                    </span>
+
                 </button>
 
-                <p class="nav-label">Categories</p>
 
-                <button class="nav-item" data-category="Design">
-                    <span>◈</span>
+
+                <p class="nav-label">
+                    Categories
+                </p>
+
+
+                <button
+                    class="nav-item"
+                    data-category="Design"
+                >
+
+                    <span>
+                        ◈
+                    </span>
+
                     Design
+
                 </button>
 
-                <button class="nav-item" data-category="Coding">
-                    <span>⌘</span>
+
+                <button
+                    class="nav-item"
+                    data-category="Coding"
+                >
+
+                    <span>
+                        ⌘
+                    </span>
+
                     Coding
+
                 </button>
 
-                <button class="nav-item" data-category="Research">
-                    <span>⌕</span>
+
+                <button
+                    class="nav-item"
+                    data-category="Research"
+                >
+
+                    <span>
+                        ⌕
+                    </span>
+
                     Research
+
                 </button>
 
-                <button class="nav-item" data-category="Writing">
-                    <span>✎</span>
+
+                <button
+                    class="nav-item"
+                    data-category="Writing"
+                >
+
+                    <span>
+                        ✎
+                    </span>
+
                     Writing
+
                 </button>
+
 
             </nav>
 
+
             <div class="sidebar-footer">
+
                 <span class="status-dot"></span>
+
                 Local storage enabled
+
             </div>
 
         </aside>
 
 
+
+        <!-- =====================================
+             MAIN CONTENT
+        ====================================== -->
+
         <section class="content">
+
+
+            <!-- CONTENT HEADER -->
 
             <div class="content-header">
 
+
                 <div>
-                    <p class="eyebrow">YOUR PROMPT LIBRARY</p>
-                    <h1>Good morning 👋</h1>
+
+                    <p class="eyebrow">
+                        YOUR PROMPT LIBRARY
+                    </p>
+
+
+                    <h1>
+                        Good morning 👋
+                    </h1>
+
+
                     <p class="subtitle">
                         Organize your best AI prompts in one place.
                     </p>
+
                 </div>
 
+
+
+                <!-- SEARCH -->
+
                 <div class="search-wrapper">
-                    <span>⌕</span>
+
+                    <span>
+                        ⌕
+                    </span>
+
+
                     <input
                         type="search"
                         id="searchInput"
                         placeholder="Search prompts..."
                         autocomplete="off"
                     >
+
                 </div>
+
 
             </div>
 
 
+
+            <!-- =================================
+                 STATISTICS
+            ================================== -->
+
             <section class="stats-grid">
 
-                <div class="stat-card">
-                    <span class="stat-label">Total prompts</span>
-                    <strong id="totalPrompts">0</strong>
-                </div>
 
                 <div class="stat-card">
-                    <span class="stat-label">Favorites</span>
-                    <strong id="totalFavorites">0</strong>
+
+                    <span class="stat-label">
+                        Total prompts
+                    </span>
+
+
+                    <strong id="totalPrompts">
+                        0
+                    </strong>
+
                 </div>
 
+
+
                 <div class="stat-card">
-                    <span class="stat-label">Categories</span>
-                    <strong id="totalCategories">4</strong>
+
+                    <span class="stat-label">
+                        Favorites
+                    </span>
+
+
+                    <strong id="totalFavorites">
+                        0
+                    </strong>
+
                 </div>
+
+
+
+                <div class="stat-card">
+
+                    <span class="stat-label">
+                        Categories
+                    </span>
+
+
+                    <strong id="totalCategories">
+                        4
+                    </strong>
+
+                </div>
+
 
             </section>
 
 
+
+            <!-- =================================
+                 PROMPTS SECTION
+            ================================== -->
+
             <section class="prompts-section">
 
+
                 <div class="section-heading">
+
+
                     <div>
-                        <h2>Recent prompts</h2>
-                        <p>Quick access to your latest prompts.</p>
+
+                        <h2>
+                            Recent prompts
+                        </h2>
+
+
+                        <p>
+                            Quick access to your latest prompts.
+                        </p>
+
                     </div>
 
-                    <button id="clearSearchBtn" class="text-button">
+
+
+                    <button
+                        id="clearSearchBtn"
+                        class="text-button"
+                    >
                         Clear search
                     </button>
+
+
                 </div>
 
 
-                <div id="promptGrid" class="prompt-grid">
-                    <!-- Prompt cards will be generated by JavaScript -->
+
+                <!-- PROMPT GRID -->
+
+                <div
+                    id="promptGrid"
+                    class="prompt-grid"
+                >
+
+                    <!-- Prompt cards generated by JavaScript -->
+
                 </div>
 
 
-                <div id="emptyState" class="empty-state hidden">
-                    <div class="empty-icon">✦</div>
-                    <h3>No prompts found</h3>
+
+                <!-- EMPTY STATE -->
+
+                <div
+                    id="emptyState"
+                    class="empty-state hidden"
+                >
+
+                    <div class="empty-icon">
+                        ✦
+                    </div>
+
+
+                    <h3>
+                        No prompts found
+                    </h3>
+
+
                     <p>
                         Create your first prompt or try a different search.
                     </p>
 
-                    <button id="emptyAddBtn" class="primary-button">
+
+                    <button
+                        id="emptyAddBtn"
+                        class="primary-button"
+                    >
                         + Create Prompt
                     </button>
+
                 </div>
+
 
             </section>
 
+
         </section>
+
 
     </main>
 
 
-    <!-- Prompt Modal -->
 
-    <div id="promptModal" class="modal hidden">
+    <!-- =========================================
+         CREATE / EDIT PROMPT MODAL
+    ========================================== -->
 
-        <div class="modal-overlay" id="modalOverlay"></div>
+    <div
+        id="promptModal"
+        class="modal hidden"
+    >
+
+
+        <div
+            class="modal-overlay"
+            id="modalOverlay"
+        ></div>
+
+
 
         <div class="modal-card">
 
+
             <div class="modal-header">
+
+
                 <div>
-                    <p class="eyebrow">PROMPT LIBRARY</p>
-                    <h2 id="modalTitle">New Prompt</h2>
+
+                    <p class="eyebrow">
+                        PROMPT LIBRARY
+                    </p>
+
+
+                    <h2 id="modalTitle">
+                        New Prompt
+                    </h2>
+
                 </div>
 
-                <button id="closeModalBtn" class="close-button">
+
+
+                <button
+                    id="closeModalBtn"
+                    class="close-button"
+                    aria-label="Close prompt editor"
+                >
                     ×
                 </button>
+
+
             </div>
+
 
 
             <form id="promptForm">
 
-                <input type="hidden" id="promptId">
+
+                <input
+                    type="hidden"
+                    id="promptId"
+                >
+
+
 
                 <label for="promptTitle">
                     Prompt title
                 </label>
+
 
                 <input
                     type="text"
@@ -200,21 +487,41 @@
                 >
 
 
+
                 <label for="promptCategory">
                     Category
                 </label>
 
-                <select id="promptCategory" required>
-                    <option value="Design">Design</option>
-                    <option value="Coding">Coding</option>
-                    <option value="Research">Research</option>
-                    <option value="Writing">Writing</option>
+
+                <select
+                    id="promptCategory"
+                    required
+                >
+
+                    <option value="Design">
+                        Design
+                    </option>
+
+                    <option value="Coding">
+                        Coding
+                    </option>
+
+                    <option value="Research">
+                        Research
+                    </option>
+
+                    <option value="Writing">
+                        Writing
+                    </option>
+
                 </select>
+
 
 
                 <label for="promptText">
                     Prompt
                 </label>
+
 
                 <textarea
                     id="promptText"
@@ -224,7 +531,9 @@
                 ></textarea>
 
 
+
                 <div class="form-actions">
+
 
                     <button
                         type="button"
@@ -234,6 +543,7 @@
                         Cancel
                     </button>
 
+
                     <button
                         type="submit"
                         class="primary-button"
@@ -241,20 +551,155 @@
                         Save Prompt
                     </button>
 
+
                 </div>
+
 
             </form>
 
+
         </div>
+
 
     </div>
 
 
-    <div id="toastContainer" class="toast-container"></div>
 
-<script src="script.js"></script>
+    <!-- =========================================
+         PROMPT VIEW MODAL
+    ========================================== -->
+
+    <div
+        id="viewModal"
+        class="modal hidden"
+    >
+
+
+        <div
+            class="modal-overlay"
+            id="viewModalOverlay"
+        ></div>
+
+
+
+        <div class="modal-card view-modal-card">
+
+
+            <div class="modal-header">
+
+
+                <div>
+
+                    <p class="eyebrow">
+                        PROMPT DETAILS
+                    </p>
+
+
+                    <h2 id="viewPromptTitle">
+                        Prompt
+                    </h2>
+
+                </div>
+
+
+
+                <button
+                    id="closeViewModalBtn"
+                    class="close-button"
+                    aria-label="Close prompt details"
+                >
+                    ×
+                </button>
+
+
+            </div>
+
+
+
+            <!-- PROMPT META -->
+
+            <div class="view-prompt-meta">
+
+
+                <span
+                    id="viewPromptCategory"
+                    class="category-badge"
+                >
+                    Design
+                </span>
+
+
+                <span
+                    id="viewPromptDate"
+                    class="prompt-date"
+                >
+                    Today
+                </span>
+
+
+            </div>
+
+
+
+            <!-- FULL PROMPT -->
+
+            <div class="view-prompt-content">
+
+
+                <p id="viewPromptText"></p>
+
+
+            </div>
+
+
+
+            <!-- VIEW ACTIONS -->
+
+            <div class="form-actions">
+
+
+                <button
+                    id="copyViewPromptBtn"
+                    class="secondary-button"
+                >
+                    Copy Prompt
+                </button>
+
+
+                <button
+                    id="closeViewPromptBtn"
+                    class="primary-button"
+                >
+                    Done
+                </button>
+
+
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <!-- =========================================
+         TOAST NOTIFICATIONS
+    ========================================== -->
+
+    <div
+        id="toastContainer"
+        class="toast-container"
+    ></div>
+
+
+
+    <!-- APPLICATION JAVASCRIPT -->
+
+    <script src="script.js"></script>
+
 
 </body>
 
-</body>
 </html>
