@@ -199,13 +199,41 @@
             </nav>
 
 
-            <div class="sidebar-footer">
+    <div class="sidebar-footer">
 
-                <span class="status-dot"></span>
+    <div class="storage-status">
+        <span class="status-dot"></span>
+        Local storage enabled
+    </div>
 
-                Local storage enabled
+    <div class="data-actions">
 
-            </div>
+        <button
+            id="exportPromptsBtn"
+            class="data-action"
+            type="button"
+        >
+            Export
+        </button>
+
+        <button
+            id="importPromptsBtn"
+            class="data-action"
+            type="button"
+        >
+            Import
+        </button>
+
+        <input
+            type="file"
+            id="importFileInput"
+            accept=".json,application/json"
+            hidden
+        >
+
+    </div>
+
+</div>
 
         </aside>
 

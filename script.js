@@ -43,6 +43,15 @@ const favoriteCount = document.getElementById("favoriteCount");
 
 const toastContainer =
     document.getElementById("toastContainer");
+    
+    const exportPromptsBtn =
+    document.getElementById("exportPromptsBtn");
+
+const importPromptsBtn =
+    document.getElementById("importPromptsBtn");
+
+const importFileInput =
+    document.getElementById("importFileInput");
 
 const viewModal =
     document.getElementById("viewModal");
@@ -1136,3 +1145,186 @@ document.addEventListener("keydown", event => {
     }
 
 });
+
+/* =========================================
+   PROMPT EXPORT
+========================================= */
+
+exportPromptsBtn.addEventListener(
+    "click",
+    exportPrompts
+);
+
+
+function exportPrompts() {
+
+    if (prompts.length === 0) {
+
+        showToast("There are no prompts to export.");
+
+        return;
+
+    }
+
+
+    const data =
+        JSON.stringify(prompts, null, 2);
+
+    const blob =
+        new Blob(
+            [data],
+            { type: "application/json" }
+        );
+
+    const url =
+        URL.createObjectURL(blob);
+
+    const link =
+        document.createElement("a");
+
+    link.href = url;
+
+    link.download =
+        "promptvault-backup.json";
+
+    document.body.appendChild(link);
+
+    link.click();
+
+    link.remove();
+
+    URL.revokeObjectURL(url);
+
+    showToast("Prompts exported successfully.");
+
+}
+
+/* =========================================
+   PROMPT IMPORT
+========================================= */
+
+importPromptsBtn.addEventListener(
+    "click",
+    () => {
+        importFileInput.click();
+    }
+);
+
+
+importFileInput.addEventListener(
+    "change",
+    handleImport
+);
+
+
+function handleImport(event) {
+
+    const file =
+        event.target.files[0];
+
+    if (!file) {
+        return;
+    }
+
+
+    if (
+        file.type !== "application/json" &&
+        !file.name.toLowerCase().endsWith(".json")
+    ) {
+
+        showToast("Please select a JSON backup file.");
+
+        importFileInput.value = "";
+
+        return;
+
+    }
+
+
+    const reader =
+        new FileReader();
+
+
+    reader.onload = () => {
+
+        try {
+
+            const imported =
+                JSON.parse(reader.result);
+
+
+            if (!Array.isArray(imported)) {
+                throw new Error("Invalid backup format.");
+            }
+
+
+            const validPrompts =
+                imported.filter(prompt => {
+
+                    return (
+                        prompt &&
+                        typeof prompt.id === "string" &&
+                        typeof prompt.title === "string" &&
+                        typeof prompt.category === "string" &&
+                        typeof prompt.text === "string" &&
+                        typeof prompt.favorite === "boolean" &&
+                        typeof prompt.createdAt === "string"
+                    );
+
+                });
+
+
+            if (validPrompts.length === 0) {
+
+                throw new Error(
+                    "No valid prompts found."
+                );
+
+            }
+
+
+            prompts = validPrompts;
+
+            savePrompts();
+
+            renderPrompts();
+
+            updateStats();
+
+            updateCounts();
+
+            searchInput.value = "";
+
+            currentFilter = {
+                type: "all",
+                value: null
+            };
+
+            setActiveNav();
+
+            showToast(
+                `${validPrompts.length} prompts imported successfully.`
+            );
+
+        } catch (error) {
+
+            console.error(
+                "Import failed:",
+                error
+            );
+
+            showToast(
+                "Unable to import that backup file."
+            );
+
+        }
+
+
+        importFileInput.value = "";
+
+    };
+
+
+    reader.readAsText(file);
+
+}

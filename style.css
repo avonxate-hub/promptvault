@@ -1143,3 +1143,50 @@ body.dark .sidebar {
     color: var(--text);
     font-weight: 700;
 }
+
+/* =========================================
+   DATA BACKUP CONTROLS
+========================================= */
+
+.sidebar-footer {
+    gap: 14px;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+.storage-status {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.data-actions {
+    display: flex;
+    gap: 7px;
+}
+
+.data-action {
+    flex: 1;
+
+    padding: 7px 9px;
+
+    border: 1px solid var(--border);
+    border-radius: 8px;
+
+    background: var(--surface);
+    color: var(--text-muted);
+
+    font-size: 10px;
+    font-weight: 650;
+
+    transition:
+        background 0.18s ease,
+        color 0.18s ease,
+        border-color 0.18s ease;
+}
+
+.data-action:hover {
+    background: var(--surface-soft);
+    color: var(--text);
+    border-color: rgba(103, 87, 255, 0.18);
+}
