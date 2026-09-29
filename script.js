@@ -1170,6 +1170,35 @@ function updateThemeIcon() {
 /* =========================================
    UTILITIES
    ========================================= */
+   
+   function updateGreeting() {
+
+    const hour =
+        new Date().getHours();
+
+    let greeting;
+
+    if (hour >= 5 && hour < 12) {
+
+        greeting = "Good morning 👋";
+
+    } else if (hour >= 12 && hour < 17) {
+
+        greeting = "Good afternoon 👋";
+
+    } else if (hour >= 17 && hour < 22) {
+
+        greeting = "Good evening 👋";
+
+    } else {
+
+        greeting = "Still Up this night? Keep up the Good Job 🌙";
+
+    }
+
+    greetingText.textContent =
+        greeting;
+}
 
 function formatDate(dateString) {
 

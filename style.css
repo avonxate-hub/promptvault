@@ -1164,7 +1164,7 @@ body.dark .sidebar {
     display: flex;
     gap: 7px;
 }
-2
+
 .data-action {
     flex: 1;
 
@@ -1250,4 +1250,30 @@ body.dark .sidebar {
 .delete-confirm-button:hover {
     background: #c94343;
     transform: translateY(-1px);
+}
+
+/* =========================================
+   MOBILE FORM POLISH
+========================================= */
+
+@media (max-width: 500px) {
+
+    .form-actions {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .form-actions > button {
+        width: 100%;
+    }
+
+    .prompt-editor-stats {
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .view-prompt-meta {
+        flex-wrap: wrap;
+    }
+
 }
