@@ -70,6 +70,13 @@ const viewPromptDate =
 
 const viewPromptText =
     document.getElementById("viewPromptText");
+    
+    const promptWordCount =
+    document.getElementById("promptWordCount");
+
+const promptCharacterCount =
+    document.getElementById("promptCharacterCount");
+    
 
 /* =========================================
    STATE
@@ -444,6 +451,8 @@ function openModal(prompt = null) {
     setTimeout(() => {
         promptTitleInput.focus();
     }, 50);
+    
+    updatePromptEditorStats();
 
 }
 
@@ -456,14 +465,43 @@ function closeModal() {
 
     promptForm.reset();
 
+    updatePromptEditorStats();
+
     promptIdInput.value = "";
 
 }
 
 
 /* =========================================
-   CREATE / UPDATE
-   ========================================= */
+   PROMPT EDITOR STATISTICS
+========================================= */
+
+promptTextInput.addEventListener(
+    "input",
+    updatePromptEditorStats
+);
+
+
+function updatePromptEditorStats() {
+
+    const text =
+        promptTextInput.value.trim();
+
+    const characters =
+        promptTextInput.value.length;
+
+    const words =
+        text
+            ? text.split(/\s+/).length
+            : 0;
+
+    promptWordCount.textContent =
+        words;
+
+    promptCharacterCount.textContent =
+        characters;
+
+}
 
 promptForm.addEventListener(
     "submit",

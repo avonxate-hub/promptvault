@@ -1117,3 +1117,29 @@ body.dark .sidebar {
     }
 
 }
+
+/* =========================================
+   PROMPT EDITOR STATISTICS
+========================================= */
+
+.prompt-editor-stats {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+
+    margin-top: 4px;
+
+    color: var(--text-muted);
+    font-size: 10px;
+}
+
+.prompt-editor-stats span {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.prompt-editor-stats strong {
+    color: var(--text);
+    font-weight: 700;
+}
