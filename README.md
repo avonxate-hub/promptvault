@@ -7,7 +7,17 @@
 
 A clean, local-first AI prompt manager built to organize, edit, search, favorite, copy, and back up reusable AI prompts.
 
-## Some Features
+## Preview
+
+### Desktop
+
+![PromptVault desktop preview](screenshots/desktop.png)
+
+### Mobile
+
+![PromptVault mobile preview](screenshots/mobileview.png)
+
+##Features
 
 - Create, edit, and delete prompts
 - Organize prompts by category
