@@ -11,11 +11,11 @@ A clean, local-first AI prompt manager built to organize, edit, search, favorite
 
 ### Desktop
 
-![PromptVault desktop preview](screenshots/desktop.png)
+![PromptVault desktop preview](screenshots/desktop2.png)
 
 ### Mobile
 
-![PromptVault mobile preview](screenshots/mobileview.png)
+![PromptVault mobile preview](screenshots/mobile2.png)
 
 ##Features
 
